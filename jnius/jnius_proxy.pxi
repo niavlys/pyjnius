@@ -174,6 +174,7 @@ cdef create_proxy_instance(JNIEnv *j_env, py_obj, j_interfaces, javacontext):
     if javacontext == 'app':
         Thread = autoclass('java.lang.Thread')
         classLoader = Thread.currentThread().getContextClassLoader()
+        print 'COntext found:',classLoader
         j_obj = Proxy.newProxyInstance(
                 classLoader, j_interfaces, nih)
 

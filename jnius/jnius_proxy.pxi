@@ -180,17 +180,6 @@ cdef create_proxy_instance(JNIEnv *j_env, py_obj, j_interfaces, javacontext):
         j_obj = Proxy.newProxyInstance(
                 classLoader, j_interfaces, nih)
 
-    # trick to force context class loader, seems usefull when multiple libs are used
-    if javacontext == 'custom':
-        Thread = autoclass('java.lang.Thread')
-        Thread.setContextClassLoader(getClass().getClassLoader())
-        classLoader = Thread.currentThread().getContextClassLoader()
-        print "-"*80 +" custom"
-        print 'COntext found:',classLoader
-        print "-"*80
-        j_obj = Proxy.newProxyInstance(
-                classLoader, j_interfaces, nih)
-
     elif javacontext == 'system':
         ClassLoader = autoclass('java.lang.ClassLoader')
         classLoader = ClassLoader.getSystemClassLoader()
